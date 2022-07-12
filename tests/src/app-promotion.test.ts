@@ -22,6 +22,10 @@ describe.skip('stake balance extrinsic', () => {
   it('will throws if stake amount is more than total free balance', async () => {
 
   });
+
+  it('will throws if stake amount is more than total free balance', async () => {
+
+  });
 });
 
 describe.skip('unstake balance', () => {
@@ -109,22 +113,25 @@ describe.skip('App-promotion collection sponsoring', () => {
 });
 
 describe.skip('app-promotion stopSponsoringCollection', () => {
-  it('can be successfully called only by admin', async () => {
-
+  it('can not be called by non-admin', async () => {
+    // create collection A
+    // admin.sponsorCollection(A)
+    // expect nonAdmin.stopSponsoringCollection(A) to failed with "Only admin can call stopSponsoringCollection" 
+    // expect the collection continues to be sponsored by the pallet
   });
 
   it('will set sponsoring as disabled', async () => {
 
   });
 
-  it('won\'t affect collection which is not sponsored by pallete', async () => {
+  it('will not affect collection which is not sponsored by pallete', async () => {
     // create collection A
     // set sponsoring for A by a
     // stopSponsoringCollection(A)
     // expect sponsor of A to be a
   });
 
-  it('will throw if collection doesn\'t exist', async () => {
+  it('will throw if collection does not exist', async () => {
     // expect failed for lastCollectionId + 1000 
     // expect failed for burnt collectiom 
   });
@@ -132,7 +139,10 @@ describe.skip('app-promotion stopSponsoringCollection', () => {
 
 describe.skip('app-promotion contract sponsoring', () => {
   it('will set contract sponsoring mode and set palletes address as a sponsor', async () => {
-
+    // deploy contract A
+    // sponsorContract(A)
+    // expect contract.sponsoringMode = ???
+    // expect contract.sponsor to be pallete
   });
 
   it('will overwrite sponsoring mode and existed sponsor', async () => {
@@ -147,12 +157,13 @@ describe.skip('app-promotion contract sponsoring', () => {
 
   });
 
-  it('what if contract upgradable', async () => {
-    // TODO what could be?
-  });
-
   it('will return unused gas fee to app-promotion pallete', async () => {
-    // set huge gas fee
+    // deploy contract A
+    // sponsorContract(A)
+    // bob calls contract A with huge gas]
+  
+    // expect bobs balance was not decreased
+    // expect unused gas fee is returned to the app-promotion pallete
   });
 
   it('will failed for non contract address', async () => {
@@ -160,10 +171,61 @@ describe.skip('app-promotion contract sponsoring', () => {
   });
 });
 
+// STOP CONTRACT SPONSORING
 describe.skip('app-promotion stopSponsoringContract', () => {
-  // TODO
+  it('will set contract sponsoring mode as disabled', async () => {
+    // deploy contract A
+    // sponsorContract(A)
+    // stopSponsoringContract(A)
+    // call contract A by bob
+
+    // expect pallete balance did not change
+    // expect bob payed some fee
+  });
+
+  it('can not be called by non-admin', async () => {
+
+  });
+
+  it('will not affect a contract which is not sponsored by pallete', async () => {
+    // deploy contract A
+    // set sponsoring for A by bob
+    // stopSponsoringContract(A)
+
+    // expect sponsor of A to be bob
+  });
+
+  it('will failed for non contract address', async () => {
+    // web3 creates address A
+
+    // expect stopSponsoringContract(A) will failed with event "A is not a contract"
+  });
 });
 
 describe.skip('app-promotion rewards', () => {
-  // TODO
+  it('will start charging only after 24h', async () => {
+
+  });
+
+  it('will charge 0.05% for staking period', async () => {
+    // bob.stake(10000);
+    // bob.stake(20000);
+    // waitForRewards();
+
+    // expect bob.staked to equal [10005, 20010] //TODO 
+  });
+  
+  it('will be charged from treasury', async () => {
+
+  });
+  
+  it('will not be charged for unstaked (reserved) balance', async () => {
+
+  });
+
+  it('will not be charged for tokens reserved for non-staking reason', async() => {
+
+  });
 });
+
+// TODO fall if existential deposits not equal 0
